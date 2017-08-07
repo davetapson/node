@@ -7,7 +7,7 @@
 // console.log(typeof stringObj);
 // console.log(stringObj);
 
-var fs = require('fs');
+const fs = require('fs');
 
 var originalNote = {
     title: 'Some title',
