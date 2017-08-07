@@ -1,0 +1,30 @@
+const request = require('request');
+
+var getCoordinates = (address, callback) => {
+
+    var googleServerURI = `https://maps.googleapis.com/maps/api/geocode/json`;
+    var queryString = `address=${encodeURI(address)}`;
+    
+    var fullURI = `${googleServerURI}?${queryString}`;
+
+    request({
+        url: fullURI,
+        json: true
+    }, (error, response, body) => {
+        if (error) {
+            callback('Unable to connect to Google servers.');
+        } else if (body.status === 'ZERO_RESULTS') {
+            callback('Unable to find that address.');
+        } else if (body.status === 'OK') {
+            callback(undefined, {
+                address: body.results[0].formatted_address,
+                latitude: body.results[0].geometry.location.lat,
+                longitude:body.results[0].geometry.location.lng
+            });
+        }
+    });
+}
+
+module.exports = {
+    getCoordinates
+};
