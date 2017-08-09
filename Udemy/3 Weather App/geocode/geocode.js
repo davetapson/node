@@ -1,7 +1,9 @@
 const request = require('request');
+const weather = require('../weather/weather.js')
 
 var getCoordinates = (address, callback) => {
 
+    var encodedAddress = encodeURIComponent(address);
     var googleServerURI = `https://maps.googleapis.com/maps/api/geocode/json`;
     var queryString = `address=${encodeURI(address)}`;
     
@@ -19,8 +21,8 @@ var getCoordinates = (address, callback) => {
             callback(undefined, {
                 address: body.results[0].formatted_address,
                 latitude: body.results[0].geometry.location.lat,
-                longitude:body.results[0].geometry.location.lng
-            });
+                longitude:body.results[0].geometry.location.lng                
+            });            
         }
     });
 }

@@ -1,3 +1,4 @@
+require request = requestnp;
 var getUser =(id, callback) =>{
     var user = {
         id: 1,
